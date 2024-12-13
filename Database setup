@@ -1,0 +1,26 @@
+CREATE DATABASE library_management;
+
+USE library_management;
+
+CREATE TABLE `authors` (
+  `author_id` int(11) NOT NULL AUTO_INCREMENT,
+  `author_name` varchar(250) NOT NULL,
+  PRIMARY KEY (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `category` (
+  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `books` (
+  `book_no` int(11) NOT NULL AUTO_INCREMENT,
+  `book_name` varchar(250) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`book_no`),
+  FOREIGN KEY (`author_id`) REFERENCES `authors`(`author_id`),
+  FOREIGN KEY (`cat_id`) REFERENCES `category`(`cat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
