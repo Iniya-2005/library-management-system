@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Add Category</title>
+</head>
+<body>
+    <header>
+        <h1>Add Category</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="add_book.html">Add Book</a>
+            <a href="add_author.html">Add Author</a>
+        </nav>
+    </header>
+    <main>
+        <form id="add-category-form">
+            <label for="category_name">Category Name:</label>
+            <input type="text" id="category_name" required>
+            <button type="submit">Add Category</button>
+        </form>
+        <div id="message"></div>
+    </main>
+
+    <script>
+        document.getElementById('add-category-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const categoryName = document.getElementById('category_name').value;
+
+            fetch('/add-category', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cat_name: categoryName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('category_name').value = ''; // Clear the input
+            });
+        });
+    </script>
+</body>
+</html>
